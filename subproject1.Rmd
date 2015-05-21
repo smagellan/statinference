@@ -1,0 +1,42 @@
+---
+title: "the Central Limit Theorem meets exponential distribution"
+author: "Vv"
+date: "05/22/2015"
+output: pdf_document
+---
+N.B.: issue "apt-get install lmodern" command to make pdf output available.
+
+The Central Limit Theorem (CLT) is one of the most important theorems in statistics.
+For our purposes, the CLT states that the distribution of averages of iid variables, properly normalized, becomes that of a standard normal as the sample size increases.
+To be more formal:
+$$\frac{\bar X_n - \mu}{\sigma / \sqrt{n}} =
+    \frac{\mbox{Estimate} - \mbox{Mean of estimate}}{\mbox{Std. Err. of estimate}}
+$$
+where:  
+$\bar X_n$ - sample average  
+$\mu$      - mean of population  
+$\sigma$   - standard deviation of population  
+To be less formal:  
+distribution of averages becomes estimator of original distribution.
+
+Let's apply CLT to exponential distribution.  
+The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda.
+
+In theory, distribution of the mean of n exponentials have following properties:  
+1. mean (approximately) equal to $\mu$ of original population given n is big enough (n=$\infty$ always welcome)  
+2. variance equal to $\sigma^2 / n$ (i.e. Standard Deviation/Error equal to $\sigma / \sqrt{n}$) of original population  
+3. approximately normal
+```{r, echo=FALSE}
+    nCoeff          <- 40;
+    nSim            <- 1000;
+    lambda          <- 0.2;    
+    populationMean  <- 1 / lambda;
+    populationSD    <- 1 / lambda;
+    sampleSD        <- populationSD / sqrt(nCoeff);
+    sampleVariance  <- populationSD ^ 2 / nCoeff;
+```
+So expected mean and variance(standard deviation) are `r populationMean` and `r sampleVariance`(`r sampleSD`) respectivaley given n = `r nCoeff`.
+
+```{r setoptions,echo=TRUE}
+    options(scipen = 6, digits = 2);
+```
